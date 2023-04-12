@@ -1,25 +1,23 @@
 import React, { useState } from 'react'
-import { Avatar, Button, Paper, Grid, Typography, Container, Box, Snackbar, IconButton, TextField} from '@mui/material';
-import { Close, Lock } from '@mui/icons-material';
+import { Avatar, Button, Paper, Grid, Typography, Container, Box, CircularProgress} from '@mui/material';
+import {Lock } from '@mui/icons-material';
 import { GoogleLogin} from '@react-oauth/google'
 import { useDispatch, useSelector} from 'react-redux'
 import jwt_decode from 'jwt-decode'
-import { useHistory,} from 'react-router-dom';
+import { useNavigate,} from 'react-router-dom';
 
-import useStyles from './styles'
+import './styles.css'
 import Input from './Input';
 import {signin, signup} from '../../action/auth'
 
 const Auth = () => {
-
-    const classes = useStyles();
     const [showPassword, setShowPassword] = useState(false);
     const [isSignUp, setIsSignUp] = useState(false);
     const [formData, setFormData] = useState({firstName: '', lastName: '', email: '', password: '',confirmPassword: ''});
-    let {email, password} = useSelector((state) => state.auth);
+    let {email, password,isLoading} = useSelector((state) => state.auth);
     const [correct, setCorrect] = useState(true);
     const dispatch = useDispatch();
-    const history = useHistory();
+    const history = useNavigate();
 
     console.log(`thsi the email ${email} and password ${password}`)
 
@@ -64,7 +62,7 @@ const Auth = () => {
         try {
             dispatch({type: 'AUTH', data: { result, token}});            
             
-            history.push('/')
+            history('/')
         } catch (error) {
             console.log(error)
         }
@@ -75,12 +73,12 @@ const Auth = () => {
     
   return (
         <Container component='main' maxWidth='xs'>
-            <Paper className={classes.paper} elevation={3} >
-                <Avatar className={classes.avatar} sx={{backgroundColor: '#da5583'}} >
+            <Paper className='paper' elevation={3} >
+                <Avatar className='avatar' sx={{backgroundColor: '#da5583'}} >
                     <Lock/>
                 </Avatar>
                 <Typography variant='h5'>{isSignUp ? 'Sign Up' : 'Sign In'}</Typography>
-                <form className={classes.form} onSubmit={HandleSubmit} >
+                <form className='form' onSubmit={HandleSubmit} >
                     <Grid container spacing={2}>
                         {isSignUp && (
                             <>
@@ -97,7 +95,9 @@ const Auth = () => {
                         :
                         <Typography color='error' >{email ? `${password ? '' : "Incorrect Password"}` : "User Don't Exist" }</Typography>
                     }
-                    <Button disabled={isSignUp ? correct : false} type='submit' fullWidth variant='contained' color='primary' className={classes.submit}>{ isSignUp ? 'Sign Up' : 'Sign In'}</Button>
+                    {isLoading ? <CircularProgress/> : 
+                        <Button disabled={isSignUp ? correct : false} type='submit' fullWidth variant='contained' color='primary' className='submit'>{ isSignUp ? 'Sign Up' : 'Sign In'}</Button>
+                    }
                     <Box>
                         <Box display='flex' flexDirection='column' justifyContent='center' >
                         {/* <Button className={classes.googleButton} color='primary' fullWidth onClick={() => login()} startIcon={<Icon/>} variant='contained' >Google SignIn</Button> */}

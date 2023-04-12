@@ -1,20 +1,20 @@
 import { AppBar, Avatar, Box, Button, Typography } from '@mui/material'
 import React, { useCallback, useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { Link, useHistory, useLocation } from 'react-router-dom'
+import { Link, useNavigate, useLocation } from 'react-router-dom'
 import { memoriesLogo, memoriesText } from '../../assets'
 import decode from 'jwt-decode'
 
 
-import useStyles from './style'
+import './style.css'
 import SearchBar from '../SearchBar/SearchBar'
+import { Logout } from '@mui/icons-material'
 
 
 const Navbar = () => {
     
-    const classes = useStyles();
     const dispatch = useDispatch();
-    const history = useHistory();
+    const history = useNavigate();
     const loactaion = useLocation();
 
     const [user, setUser] = useState(null)
@@ -23,7 +23,7 @@ const Navbar = () => {
         dispatch({type: 'LOGOUT'})
         
         setUser(null);
-        history.push('/')
+        history('/')
 
     },[dispatch,history,setUser])
 
@@ -40,22 +40,23 @@ const Navbar = () => {
     },[loactaion, logout, user?.token,history])
 
   return (
-    <AppBar className={classes.appBar} sx={{flexDirection: 'row'}} position='static' color='inherit' >
-        <Link to='/' className={classes.brandContainer} >
+    <AppBar className='appBar' sx={{flexDirection: 'row'}} position='static' color='inherit' >
+        <Link to='/' className="brandContainer" >
             <img src={memoriesLogo} alt='icon' height='45px'  />
-            <img className={classes.image} src={memoriesText}  alt='memerories' height='40px' />
+            <img className="image" src={memoriesText}  alt='memerories' height='40px' />
         </Link>
-        <Box display='flex' gap='1rem' justifyContent='center' alignContent='center' >
+        <Box className="container" >
             <SearchBar/>
-            <Box className={classes.toolbar}>
+            <Box className="toolbar">
                 {user ? (
-                <div className={classes.profile}>
-                        <div className={classes.brandContainer} gap='1rem'>
-                            <Avatar className={classes.image} alt={user.result.name} src={user.result.picture}>{user.result.name?.charAt(0)}</Avatar>
-                            <Typography className={classes.userName} variant='h6'>{user.result.name}</Typography>
-                        </div>
-                        <Button variant='contained' className={classes.logout} onClick={logout} color='secondary'>Log Out</Button>
+                <div className='profile'>
+                    <div className="brandContainer" >
+                        <Avatar className='image' alt={user.result.name} src={user.result.picture}>{user.result.name?.charAt(0)}</Avatar>
+                        <Typography className='userName' variant='h6'>{user.result.name}</Typography>
                     </div>
+                    <Button variant='contained' className='logout' onClick={logout} color='secondary'>Log Out </Button>
+                    <Logout className='logout-icon' />
+                </div>
                 ) : (
                     <Button component={Link} to='/auth' variant='contained' color='primary'>Sign In</Button>
                 )}

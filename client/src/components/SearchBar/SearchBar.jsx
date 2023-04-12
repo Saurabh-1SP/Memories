@@ -1,16 +1,15 @@
 import React, { useState } from 'react'
 import {useDispatch} from 'react-redux'
-import {useHistory} from 'react-router-dom'
+import {useNavigate} from 'react-router-dom'
 
-import useStyles from './style.js'
+import './style.css'
 import {getPostsBySearch} from '../../action/posts'
 
 const SearchBar = () => {
   const dispatch = useDispatch();
-  const history = useHistory();
+  const history = useNavigate();
   const [search, setSearch] = useState('');
   const [isSearch, setIsSearch] = useState(false);
-  const classes = useStyles();
 
   const toggle = () => setIsSearch(!isSearch);
 
@@ -23,13 +22,13 @@ const SearchBar = () => {
     const searchPost = () => {
       if(search.trim()) {
         dispatch(getPostsBySearch(search))
-        history.push(`/posts/search?searchQuery=${search || 'none'}`)
+        history(`/posts/search?searchQuery=${search || 'none'}`)
       } else {
-        history.push('/')
+        history('/')
       }
     }
   return (
-    <div className={classes.barContainer} >
+    <div className='barContainer' >
       <input 
         type='text'
         onFocus={toggle} 
@@ -37,7 +36,7 @@ const SearchBar = () => {
         placeholder='Search Memories'
         onKeyPress={handleKeyPress} 
         onChange={(e)=> {setSearch(e.target.value); console.log(search)}} 
-        className={classes.bar} 
+        className='bar'
       />
     </div>
   )

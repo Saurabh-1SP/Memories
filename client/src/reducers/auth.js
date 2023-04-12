@@ -1,7 +1,7 @@
-import { auth, logout, signIn} from "../constants/actions";
+import { auth, end_loading, logout, signIn, start_loading} from "../constants/actions";
 
 
-const authReducer = (state = {authData : null,email: true,password: true}, action) => {
+const authReducer = (state = {authData : null,email: true,password: true,isLoading: false}, action) => {
     switch (action.type) {
         case auth:
             console.log(action?.data)
@@ -32,6 +32,10 @@ const authReducer = (state = {authData : null,email: true,password: true}, actio
             localStorage.clear();
             
             return { ...state, authData: null}
+        case start_loading: 
+            return {...state, isLoading: true}
+        case end_loading: 
+            return {...state, isLoading: false,}
         default:
             return state;
     }

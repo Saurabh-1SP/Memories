@@ -56,7 +56,7 @@ export const createPost = (post,history) => async (dispatch) => {
         dispatch({type: start_loading});
         const {data} = await api.createPost(post);
 
-        history.push(`/post/${data._id}`)
+        history(`/post/${data._id}`)
 
         dispatch({ type: create, payload: data})
     } catch (error) {

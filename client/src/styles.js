@@ -2,29 +2,29 @@ import { makeStyles } from '@mui/styles';
 
 export default makeStyles((theme) => ({
   appBar: {
-    borderRadius: 15,
+    border-radius: 15,
     margin: '30px 0',
     display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
+    flex-direction: 'row',
+    justify-content: 'center',
+    align-items: 'center',
   },
   heading: {
     color: 'rgba(0,183,255, 1)',
   },
   image: {
-    marginLeft: '15px',
+    margin-left: '15px',
   },
   [theme.breakpoints.down('sm')] : {
     mainContainer: {
-      flexDirection: 'column-reverse',
+      flex-direction: 'column-reverse',
     },
     formContainer: {
       maxWidth: '80%',
-      alignItems: 'center'
+      align-items: 'center'
     },
     heading: {
-      fontSize: '2.5rem'
+      font-size: '2.5rem'
     }
   }
 }));
