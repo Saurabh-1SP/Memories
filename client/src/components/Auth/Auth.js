@@ -72,7 +72,7 @@ const Auth = () => {
     }
     
   return (
-        <Container component='main' maxWidth='xs'>
+        <Container component='main' maxWidth='xs' className='authContainer' sx={{display: 'flex'}} >
             <Paper className='paper' elevation={3} >
                 <Avatar className='avatar' sx={{backgroundColor: '#da5583'}} >
                     <Lock/>
@@ -99,10 +99,9 @@ const Auth = () => {
                         <Button disabled={isSignUp ? correct : false} type='submit' fullWidth variant='contained' color='primary' className='submit'>{ isSignUp ? 'Sign Up' : 'Sign In'}</Button>
                     }
                     <Box>
-                        <Box display='flex' flexDirection='column' justifyContent='center' >
+                        <Box display='flex' flexDirection='column' alignContent='center' justifyContent='center' gap='0.5rem' >
                         {/* <Button className={classes.googleButton} color='primary' fullWidth onClick={() => login()} startIcon={<Icon/>} variant='contained' >Google SignIn</Button> */}
                             <GoogleLogin 
-                            width='365px'
                             onSuccess={googleSuccess}
                             onError={googleFailure}
                             />

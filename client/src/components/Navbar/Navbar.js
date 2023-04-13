@@ -58,7 +58,7 @@ const Navbar = () => {
                     <Logout className='logout-icon' onClick={logout} />
                 </div>
                 ) : (
-                    <Button component={Link} to='/auth' variant='contained' color='primary'>Sign In</Button>
+                    <Button component={Link} sx={{marginLeft: '0.5rem'}} to='/auth' variant='contained' color='primary'>Sign In</Button>
                 )}
             </Box>
         </Box>

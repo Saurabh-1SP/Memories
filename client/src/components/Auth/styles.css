@@ -1,4 +1,11 @@
+.authContainer{
+  height: 100vh;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
 .paper{
+    width: auto;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -9,10 +16,12 @@
     margin: 0.5rem;
   }
 .form{
-    width: 100%;
+    width: 'auto';
     margin-top: 0.8rem;
     display: flex;
     flex-direction: column;
+    align-items: center;
+    justify-content: center;
     gap: 0.5rem;
   }
 .inputContainer{
