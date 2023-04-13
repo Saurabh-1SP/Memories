@@ -55,7 +55,7 @@ const Navbar = () => {
                         <Typography className='userName' variant='h6'>{user.result.name}</Typography>
                     </div>
                     <Button variant='contained' className='logout' onClick={logout} color='secondary'>Log Out </Button>
-                    <Logout className='logout-icon' />
+                    <Logout className='logout-icon' onClick={logout} />
                 </div>
                 ) : (
                     <Button component={Link} to='/auth' variant='contained' color='primary'>Sign In</Button>
