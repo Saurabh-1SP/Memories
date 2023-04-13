@@ -8,7 +8,7 @@ import { GoogleOAuthProvider } from '@react-oauth/google'
 const App = () => {
   return (
       <BrowserRouter>
-          <GoogleOAuthProvider clientId={process.env.GOOGLE_CLIENT_ID}>
+          <GoogleOAuthProvider clientId='296166462666-c9lkr2tl8d3ptajlbipovshjtnguvge9.apps.googleusercontent.com'>
               <CssBaseline/>
                   <Navbar/>
                       <Routes>
