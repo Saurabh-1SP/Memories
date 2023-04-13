@@ -23,7 +23,6 @@ const Home = () => {
     const {posts,isLoading} = useSelector((state)=> state.posts)
     const user = localStorage.getItem('profile')
 
-    console.log(`create post is ${open}`)
     const toggleOpen = () => {
       setOpen(!open)
     }

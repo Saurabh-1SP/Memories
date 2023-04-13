@@ -8,6 +8,7 @@ import reducers from './reducers'
 import './index.css'
 import App from './App'
 
+
 const store = createStore(reducers, compose(applyMiddleware(thunk)))
 
 const root = document.getElementById('root')
