@@ -1,0 +1,24 @@
+.paper{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+/* .root{
+} */
+.avatar{
+    margin: 0.5rem;
+  }
+.form{
+    width: 100%;
+    margin-top: 0.8rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+.inputContainer{
+    border-radius: 4px;
+    z-index: 0;
+}
+.googleButton{
+    width: 100%;
+}

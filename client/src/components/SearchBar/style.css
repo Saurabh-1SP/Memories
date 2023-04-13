@@ -1,0 +1,42 @@
+.appBarSearch{
+    border-radius: 4;
+    margin-bottom: 1rem;
+    display: flex;
+    padding: 16px;
+  }
+.barContainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+.bar{
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 20px;
+    border: none;
+    width: 300px;
+    transition: 0.5s;
+    border: 1px solid black;
+    outline: none;
+}
+.bar:focus{
+      border: none;
+      outline: solid #33a9d4;
+      border-radius: 4px;
+}
+
+@media screen and (max-width: 900px) {
+  .bar{
+    width: 200px
+  }
+}
+@media screen and (max-width: 700px) {
+  .bar{
+    width: 150px
+  }
+}
+@media screen and (max-width: 700px) {
+  .bar{
+    width: 120px
+  }
+}

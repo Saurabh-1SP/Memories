@@ -1,0 +1,84 @@
+.appBar{
+    margin: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 30px;
+  }
+.heading{
+    /* color: theme.palette.primary.main; */
+    text-decoration: none;
+    font-size: 2em;
+    font-weight: 300;
+  }
+.image{
+    margin-left: 10px;
+    margin-top: 5px;
+  }
+.toolbar{
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    margin: 10px 0px;
+  }
+.profile{
+    display: flex;
+    justify-content: space-between;
+    width: auto;
+    gap: 1rem;
+    align-items: center;
+  }
+.logout{
+    margin-left: 20px;
+  }
+.userName{
+    display: flex;
+    align-items: center;
+    text-align: center;
+  }
+.container{
+  display: flex; 
+  gap: 1rem;
+  justify-content: center; 
+  align-items: center;
+}
+.brandContainer{
+    display: flex;
+    align-items: center;
+  }
+.profile svg{
+  display: none;
+}
+.profile svg:hover{
+  color: #9c27b0;
+}
+
+  @media screen and (max-width: 900px) {
+    .userName{
+      display: none;
+    }
+    .container{
+      gap:0;
+    }
+  }
+  @media screen and (max-width: 700px) {
+    .image{
+      display: none;
+    }
+    .profile{
+      gap: 0.5rem;
+    }
+    .appBar{
+      padding: 5px 15px;
+    }
+    .profile button{
+      display: none;
+    }
+    .profile svg{
+      display: block;
+    }
+  }
+/* .purple{
+    color: ; 
+    background-color: deepPurple[500];
+  } */

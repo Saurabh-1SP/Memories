@@ -1,0 +1,48 @@
+.img{
+    border-radius: 20px;
+    object-fit: cover;
+    width: 100%;
+    max-height: 600px;
+  }
+.card{
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    margin-top: 1rem;
+  }
+.detailsContainer{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+.section{
+    border-radius: 20px;
+    margin: 10px;
+    flex: 1;
+  }
+.imageSection{
+    flex: 1;
+    margin-left: 20px;
+  }
+.recommendedPosts{
+    display: flex;
+    overflow-x: scroll;
+  }
+.loadingPaper{
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    padding: 20px;
+    border-radius: 15px; 
+    height: 39vh;
+  }
+
+@media screen and (max-width: 700px) {
+  .detailsContainer{
+    flex-direction: column-reverse;
+  }
+  .imageSection{
+    width: 80vw;
+  }
+}
