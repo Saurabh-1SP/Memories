@@ -2,10 +2,11 @@ import React,{useEffect} from 'react'
 import {CircularProgress, Divider, Paper, Typography} from '@mui/material'
 import moment from 'moment'
 import {useDispatch, useSelector} from 'react-redux'
-import {useNavigate, useParams} from 'react-router-dom'
+import {Link, useNavigate, useParams} from 'react-router-dom'
 
 import {getPost} from '../../action/posts'
 import './styles.css'
+import { Chat } from '@mui/icons-material'
 
 const PostDetails = () => {
     
@@ -44,7 +45,7 @@ const PostDetails = () => {
           <Typography variant="h6">Created by: {post.name}</Typography>
           <Typography variant="body1">{moment(post.createdAt).fromNow()}</Typography>
           <Divider style={{ margin: '20px 0' }} />
-          <Typography variant="body1"><strong>Realtime Chat - coming soon!</strong></Typography>
+          <Typography variant="body1" component={Link} sx={{textDecoration: 'none',color: 'GrayText'}} to='/chat' ><strong><Chat/> Realtime Chat</strong></Typography>
           <Divider style={{ margin: '20px 0' }} />
           <Typography variant="body1"><strong>Comments - coming soon!</strong></Typography>
           <Divider style={{ margin: '20px 0' }} />

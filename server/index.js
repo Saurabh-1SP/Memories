@@ -22,7 +22,7 @@ const Connection_Url = process.env.MONGODB_CLIENT_KEY
 
 mongoose.connect( Connection_Url, {useNewUrlParser: true, useUnifiedTopology: true})
     .then(()=> app.listen(5000, () => console.log(`server running on port: 5000`)))
-    .catch(()=> console.log('error'));
+    .catch((error)=> {console.log('error'); console.log(error)});
 
 
 // mongoose.set('useFindAndModify', false);

@@ -1,7 +1,7 @@
 import React from 'react'
 import { CssBaseline} from '@mui/material'
 
-import {Navbar, Home, Auth, PostDetails, User} from './components'
+import {Navbar, Home, Auth, PostDetails, User,Chat} from './components'
 import { BrowserRouter, Route,Routes} from 'react-router-dom'
 import { GoogleOAuthProvider } from '@react-oauth/google'
 
@@ -18,6 +18,7 @@ const App = () => {
                         <Route path='/post/:id' exact element={<PostDetails/>}/>
                         <Route path='/user/:name' exact element={<User/>} />
                         <Route path='/auth' exact element={<Auth/>}/>
+                        <Route path='/chat' exact element={<Chat/>}/>
                       </Routes>
           </GoogleOAuthProvider>
       </BrowserRouter>

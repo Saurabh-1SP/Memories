@@ -6,6 +6,7 @@ import Auth from './Auth/Auth.js'
 import PostDetails from './PostDeatails/PostDetails.jsx'
 import User from './User/User'
 import Paginate from './Pagination/Pagination'
+import Chat from './Chat/Chat.jsx'
 
 export {
     User,
@@ -16,4 +17,5 @@ export {
     Auth,
     PostDetails,
     Paginate,
+    Chat,
 }
