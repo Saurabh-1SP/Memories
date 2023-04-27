@@ -57,3 +57,33 @@
     display: block;
     text-align: initial;
   }
+.postCommentContainer{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  margin:4px 0px;
+}
+.commentBtn:hover{
+  color: #33a9d4;
+}
+.commentsContainer{
+  height: 70%;
+  margin-top: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  overflow-y: scroll;
+}
+.comment{
+  display: flex;
+  align-items: flex-start;
+  gap: 0.7rem;
+  margin: 0 1rem;
+}
+.commentContentHeader{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}

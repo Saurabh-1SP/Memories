@@ -1,7 +1,7 @@
 import axios from 'axios'
 
-// const API = axios.create({baseURL: 'https://memories-96r5.onrender.com'})
-const API = axios.create({baseURL: "https://memories-96r5.onrender.com"})
+const API = axios.create({baseURL: 'https://memories-96r5.onrender.com'})
+// const API = axios.create({baseURL: "http://localhost:5000"})
 
 API.interceptors.request.use((req) => {
     if(localStorage.getItem('profile')) {
@@ -22,6 +22,8 @@ export const updatePost = (id, updatePost) => API.patch(`/posts/${id}`,updatePos
 export const deletePost = (id) => API.delete(`/posts/${id}`);
 
 export const likePost = (id) => API.patch(`/posts/${id}/likePost`);
+
+export const createComment = (comment,id) => API.patch(`/posts/comment/${id}`, comment)
 
 export const fetchPostsBysearch = (searchQuery) => API.get(`/posts/search/${searchQuery}`);
 

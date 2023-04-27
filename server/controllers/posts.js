@@ -1,5 +1,6 @@
 import mongoose from "mongoose"
 import PostMessage from "../models/postMessage.js"
+import User from '../models/user.js'
 
 const getPosts = async (req,res) => {
 
@@ -125,6 +126,27 @@ const likePost = async (req, res) => {
     }
 
 }
+const createComment = async (req,res) => {
+    const {id} = req.params;
+    const comment = req.body;
+
+    try {
+        if(!comment.user) return res.json({message: "Unathenticated"})
+    
+        if(!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send('No post foun')
+    
+        const post = await PostMessage.findById(id);
+        const user = await User.findById(comment.user)
+
+        const commentedPost = await PostMessage.findByIdAndUpdate(id, {comments: [...post.comments,{...comment,user: {userId: user._id, userName: user.name},createdAt: new Date().toISOString()}]} )
+        
+        res.json(commentedPost)
+    } catch (error) {
+        res.status(404).json({message: error})
+        console.log(error)
+    }
+
+}
 
 export {
     getPosts,
@@ -135,4 +157,5 @@ export {
     getPostsBySearch,
     getPost,
     getPostsByTags,
+    createComment,
 }

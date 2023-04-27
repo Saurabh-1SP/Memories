@@ -1,4 +1,4 @@
-import { create, delet, end_loading, fetch, fetchpost, fetch_by_search, like, start_loading, update } from "../constants/actions";
+import { create, delet, end_loading, fetch, fetchpost, fetch_by_search, like, start_loading, update, addComment } from "../constants/actions";
 
 
 const postReducer = (state = { isLoading: true, posts: [],post: []}, action) => {
@@ -38,6 +38,8 @@ const postReducer = (state = { isLoading: true, posts: [],post: []}, action) => 
                 ...state,
                 isLoading: false,
             }
+        case addComment: 
+        return { ...state, posts:  state.posts.map((post)=> post._id === action.payload._id ? action.payload : post )};
         default:
             return state;
     }

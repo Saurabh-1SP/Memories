@@ -1,19 +1,21 @@
-import React from 'react'
-import { Card, CardActions, CardContent, CardMedia, Button, Typography, ButtonBase } from '@mui/material';
-import {ThumbUpAltOutlined, DeleteOutline, ThumbUpAlt, MoreVert} from '@mui/icons-material';
+import React, { useState } from 'react'
+import { Card, CardActions, CardContent, CardMedia, Button, Typography, ButtonBase, Box, Avatar, TextField, Divider } from '@mui/material';
+import {ThumbUpAltOutlined, DeleteOutline, ThumbUpAlt, MoreVert, CommentOutlined,  PostAddSharp} from '@mui/icons-material';
 // import DeleteIcon from '@mui/material/Icon';
 // import MoreHorizIcon from '@mui/material/Icon';
 import moment from 'moment'
 import {useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux';
 
-import { deletePost, getPostsByTags, likePost } from '../../../action/posts';
+import { createComment, deletePost, getPostsByTags, likePost } from '../../../action/posts';
 import './styles.css'
 
 const Post = ({post,setCurrentId}) => {
     const dispatch = useDispatch();
     const history = useNavigate();
     const user = JSON.parse(localStorage.getItem('profile'));
+    const [commentView, setCommentView] = useState(false)
+    const [comment, setComment] = useState({comment: '',user: user?.result?._id,likes: []})
 
     const Likes = () => {
       if(post.likes.length > 0 ) {
@@ -25,6 +27,12 @@ const Post = ({post,setCurrentId}) => {
         )
       }
       return <><ThumbUpAltOutlined fontSize='small'/>&nbsp;Like</>
+    }
+
+    const handlClick = (e) => {
+      e.preventDefault();
+
+      dispatch(createComment(comment,post._id))
     }
 
     const openPost = () => {
@@ -63,13 +71,47 @@ const Post = ({post,setCurrentId}) => {
         <Button size='small' color='primary' disabled={!user?.result} onClick={()=> dispatch(likePost(post._id))}>
           <Likes/>
         </Button>
-        {(user?.result?.sub === post?.creator || user?.result?._id === post?.creator) && (
-        <Button size='small' color='primary'  onClick={()=> dispatch(deletePost(post._id))}>
+        <Button size='small' color='primary' disabled={!user?.result} onClick={()=> setCommentView(true)}>
+         <Typography> {post.comments.length>0 ? `${post.comments.length}` : ''} </Typography>&nbsp; <CommentOutlined fontSize='small'/> 
+        </Button>
+        {/* {(user?.result?.sub === post?.creator || user?.result?._id === post?.creator) && (
+          <Button size='small' color='primary'  onClick={()=> dispatch(deletePost(post._id))}>
           <DeleteOutline fontSize='small'/>
           Delete
-        </Button>
-        )}
+          </Button>
+        )} */}
       </CardActions>
+        <Box sx={{width: '100%',height: '56%', backgroundColor: '#f3f3f3', position: 'absolute',top: commentView ? '45%' : '100%', left: '0rem', transition: '0.5s',}} >
+          <div className='postCommentContainer'>
+          <Avatar className='post_avatar' alt={user?.result?.name} src={user?.result?.picture}>{user?.result?.name.charAt(0)}</Avatar>
+          <TextField name='comment' value={comment.comment} onChange={(e) => setComment({...comment,comment: e.target.value})} placeholder='comment' inputProps={{style: {padding: '6px'}}} />
+          <div onClick={handlClick}>
+            <PostAddSharp fontSize='medium' className='commentBtn'/>
+          </div>
+          </div>
+          <Divider/>
+          {/* <div className='commentsContainter' > */}
+            {post?.comments.length ? (
+              <div className='commentsContainer'>
+                {post?.comments.map((comment) => (
+                  <>
+                    <div className='comment'>
+                      <Avatar sizes='small' className='post_avatar' alt={comment.user.userName} >{user?.result?.name.charAt(0)}</Avatar>
+                      <div className='commentContent'>
+                        <div className='commentContentHeader'>
+                          <Typography variant='h6' fontSize='14px' fontWeight='500'>{comment.user.userName}</Typography>
+                          <Typography variant='body2' fontSize='10px' fontWeight='400'>{moment(comment.createdAt).fromNow()}</Typography>
+                        </div>
+                        <Typography>{comment.comment}</Typography>
+                      </div>
+                    </div>
+                    <Divider sx={{width: '80%', alignSelf: 'center'}}/>
+                  </>
+                ))}
+              </div>
+            ): <Typography variant='h5' sx={{textAlign: 'center'}}>Be the first One to Comment</Typography>}
+          {/* </div> */}
+        </Box>
     </Card>
   )
 }

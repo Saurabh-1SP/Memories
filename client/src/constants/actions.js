@@ -10,6 +10,7 @@ const fetch_by_search = 'FETCH_BY_SEARCH'
 const start_loading = 'START_LOADING'
 const end_loading = 'END_LOADING'
 const fetchpost = 'FETCH_POST'
+const addComment = 'COMMENT'
 
 export {
     create,
@@ -23,5 +24,6 @@ export {
     start_loading,
     fetchpost,
     end_loading,
-    signIn
+    signIn,
+    addComment,
 }
