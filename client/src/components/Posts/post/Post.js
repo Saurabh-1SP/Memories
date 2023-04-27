@@ -1,13 +1,13 @@
 import React, { useState } from 'react'
 import { Card, CardActions, CardContent, CardMedia, Button, Typography, ButtonBase, Box, Avatar, TextField, Divider } from '@mui/material';
-import {ThumbUpAltOutlined, DeleteOutline, ThumbUpAlt, MoreVert, CommentOutlined,  PostAddSharp} from '@mui/icons-material';
+import {ThumbUpAltOutlined, ThumbUpAlt, MoreVert, CommentOutlined,  PostAddSharp} from '@mui/icons-material';
 // import DeleteIcon from '@mui/material/Icon';
 // import MoreHorizIcon from '@mui/material/Icon';
 import moment from 'moment'
 import {useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux';
 
-import { createComment, deletePost, getPostsByTags, likePost } from '../../../action/posts';
+import { createComment, getPostsByTags, likePost } from '../../../action/posts';
 import './styles.css'
 
 const Post = ({post,setCurrentId}) => {
