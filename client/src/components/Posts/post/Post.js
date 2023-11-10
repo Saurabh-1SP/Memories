@@ -54,7 +54,7 @@ const Post = ({post,setCurrentId}) => {
         <CardMedia className='media' image={post.selectedFile}  title={post.title}/>
         {(user?.result?.sub === post?.creator || user?.result?._id === post?.creator) && (
         <div className="overlay2" >
-          <Button style={{color: 'white'}} size='small' onClick={()=> setCurrentId(post._id)} >
+          <Button style={{color: 'white', justifyContent: 'right'}} size='small' onClick={()=> setCurrentId(post._id)} >
             <MoreVert fontSize='small'/>
           </Button>
         </div>
@@ -71,7 +71,7 @@ const Post = ({post,setCurrentId}) => {
         <Button size='small' color='primary' disabled={!user?.result} onClick={()=> dispatch(likePost(post._id))}>
           <Likes/>
         </Button>
-        <Button size='small' color='primary' disabled={!user?.result} onClick={()=> setCommentView(true)}>
+        <Button size='small' style={{justifyContent: 'right'}} color='primary' disabled={!user?.result} onClick={()=> setCommentView(true)}>
          <Typography> {post.comments.length>0 ? `${post.comments.length}` : ''} </Typography>&nbsp; <CommentOutlined fontSize='small'/> 
         </Button>
         {/* {(user?.result?.sub === post?.creator || user?.result?._id === post?.creator) && (
@@ -83,11 +83,11 @@ const Post = ({post,setCurrentId}) => {
       </CardActions>
         <Box sx={{width: '100%',height: '56%', backgroundColor: '#f3f3f3', position: 'absolute',top: commentView ? '45%' : '100%', left: '0rem', transition: '0.5s',}} >
           <div className='postCommentContainer'>
-          <Avatar className='post_avatar' alt={user?.result?.name} src={user?.result?.picture}>{user?.result?.name.charAt(0)}</Avatar>
-          <TextField name='comment' value={comment.comment} onChange={(e) => setComment({...comment,comment: e.target.value})} placeholder='comment' inputProps={{style: {padding: '6px'}}} />
-          <div onClick={handlClick}>
-            <PostAddSharp fontSize='medium' className='commentBtn'/>
-          </div>
+            <Avatar className='post_avatar' alt={user?.result?.name} src={user?.result?.picture}>{user?.result?.name.charAt(0)}</Avatar>
+            <TextField name='comment' value={comment.comment} onChange={(e) => setComment({...comment,comment: e.target.value})} placeholder='comment' inputProps={{style: {padding: '6px'}}} />
+            <div onClick={handlClick}>
+              <PostAddSharp fontSize='medium' className='commentBtn'/>
+            </div>
           </div>
           <Divider/>
           {/* <div className='commentsContainter' > */}
