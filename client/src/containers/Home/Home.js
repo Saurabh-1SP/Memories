@@ -6,7 +6,7 @@ import { Add} from '@mui/icons-material'
 
 import { getPosts } from '../../action/posts'
 import './styles.css'
-import {Form,Paginate,Posts} from '../'
+import {Form,Paginate,Posts} from '../../components'
 
 function useQuery(){
   return new URLSearchParams(useLocation().search)

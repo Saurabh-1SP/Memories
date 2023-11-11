@@ -99,7 +99,7 @@ const Post = ({post,setCurrentId}) => {
                       <Avatar sizes='small' className='post_avatar' alt={comment.user.userName} >{user?.result?.name.charAt(0)}</Avatar>
                       <div className='commentContent'>
                         <div className='commentContentHeader'>
-                          <Typography variant='h6' fontSize='14px' fontWeight='500'>{comment.user.userName}</Typography>
+                          <Typography variant='h6' fontSize='14px' fontWeight='500' >{comment.user.userName}</Typography>
                           <Typography variant='body2' fontSize='10px' fontWeight='400'>{moment(comment.createdAt).fromNow()}</Typography>
                         </div>
                         <Typography>{comment.comment}</Typography>

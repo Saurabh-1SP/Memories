@@ -1,7 +1,8 @@
 import React from 'react'
 import { CssBaseline} from '@mui/material'
 
-import {Navbar, Home, Auth, PostDetails, User,Chat} from './components'
+import {Home, Auth, PostDetails, User,Chat} from './containers'
+import { Navbar } from './components'
 import { BrowserRouter, Route,Routes} from 'react-router-dom'
 import { GoogleOAuthProvider } from '@react-oauth/google'
 

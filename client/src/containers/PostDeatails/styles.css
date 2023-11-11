@@ -38,6 +38,12 @@
     height: 39vh;
   }
 
+.comment_head{
+  margin: 6px 10px;
+  padding: 0 10px;
+  justify-content: left;
+}
+
 @media screen and (max-width: 700px) {
   .detailsContainer{
     flex-direction: column-reverse;
