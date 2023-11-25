@@ -41,7 +41,7 @@ const Post = ({post,setCurrentId}) => {
       history(`/post/${post._id}`)
     }
     const openUser = () => {
-      history(`/user/${post.name}`)
+      history(`/user/${post.creator}`)
     }
 
   return (

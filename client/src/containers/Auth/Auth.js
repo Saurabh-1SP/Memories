@@ -8,7 +8,7 @@ import { useNavigate,} from 'react-router-dom';
 
 import './styles.css'
 import Input from './Input';
-import {signin, signup} from '../../action/auth'
+import {googleSignIn, signin, signup} from '../../action/auth'
 
 const Auth = () => {
     const [showPassword, setShowPassword] = useState(false);
@@ -18,9 +18,6 @@ const Auth = () => {
     const [correct, setCorrect] = useState(true);
     const dispatch = useDispatch();
     const history = useNavigate();
-
-    console.log(`thsi the email ${email} and password ${password}`)
-
 
     const switchMode = () => {
         setIsSignUp((prevSignUp)=> !prevSignUp)
@@ -60,9 +57,11 @@ const Auth = () => {
         const result = jwt_decode(res.credential);
         const token = res?.credential;
         try {
-            dispatch({type: 'AUTH', data: { result, token}});            
+            const data = {result,token}
+            dispatch(googleSignIn(data,history))
+            // dispatch({type: 'AUTH', data: { result, token}}); 
             
-            history('/')
+            // history('/')
         } catch (error) {
             console.log(error)
         }

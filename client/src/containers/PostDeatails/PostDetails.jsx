@@ -14,7 +14,7 @@ const PostDetails = () => {
   const {post,posts, isLoading} = useSelector((state) => state.posts);
   const dispatch = useDispatch();
   const history = useNavigate();
-  const { id } = useParams();
+  const  {id}  = useParams();
 
   useEffect(() => {
     dispatch(getPost(id));
@@ -59,7 +59,7 @@ const PostDetails = () => {
             <Typography gutterBottom variant='h5'>You might also like: </Typography>
             <Divider/>
             <div className='recommendedPosts' >
-              {recommendedPosts.map(({title,message, name , likes, selectedFile, _id})=> (
+              {recommendedPosts?.map(({title,message, name , likes, selectedFile, _id})=> (
                 <div style={{margin: '20px',cursor: 'pointer'}} onClick={() => openPost(_id)} key={_id} >
                   <Typography gutterBottom variant='h6'>{title}</Typography>
                   <Typography gutterBottom variant='subtitle2'>{name}</Typography>

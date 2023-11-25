@@ -1,7 +1,7 @@
 import axios from 'axios'
 
-const API = axios.create({baseURL: 'https://memories-96r5.onrender.com'})
-// const API = axios.create({baseURL: "http://localhost:5000"})
+// const API = axios.create({baseURL: 'https://memories-96r5.onrender.com'})
+const API = axios.create({baseURL: "http://localhost:5000"})
 
 API.interceptors.request.use((req) => {
     if(localStorage.getItem('profile')) {
@@ -32,3 +32,7 @@ export const fetchPostsByTags = (searchQuery) => API.get(`/posts/search/tag/${JS
 export const signIn = (formData)  => API.post('/user/signin',formData)
 
 export const signUp = (formData)  => API.post('/user/signup',formData)
+
+export const googleSignIn = (data) => API.post('/user/google/signin',data)
+
+export const fetchUser = (id) => API.get(`/user/${id}`)

@@ -1,10 +1,12 @@
 import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
 
-import User from '../models/user.js'
+import UserModel from '../models/user.js'
+import mongoose from 'mongoose';
 
 export const signin = async (req,res) => {
     const {email,password} = req.body;
+    const User = await UserModel(false)
 
     try {
         const exisitngUser = await User.findOne({email});
@@ -19,12 +21,14 @@ export const signin = async (req,res) => {
 
         res.status(200).json({result: exisitngUser,token})
     } catch (error) {
-        res.status(500).json({message: 'Something went wrong'})
+        res.status(500).json({message: 'Something went wrong',error})
+        console.log(error)
     }
 }
 export const signup = async (req,res) => {
-    const {email,password,confirmPassword, firstName, lastName} = req.body;
+    const User = UserModel(false)
 
+    const {email,password,confirmPassword, firstName, lastName} = req.body;
     try {
         const existingUser = await User.findOne({email});
 
@@ -33,13 +37,56 @@ export const signup = async (req,res) => {
         if(password !== confirmPassword) return res.json({result: 'Password doesnt match'})
 
         const hashedPassword = await bcrypt.hash(password,12)
-
-        const result = await User.create({email, password: hashedPassword, name: `${firstName} ${lastName}`, firstName: firstName,lastName: lastName});
-
+        const result = await User.create({email, password: hashedPassword, name: `${firstName} ${lastName}`, firstName: firstName,lastName: lastName });
         const token = jwt.sign({email: result.email, id: result._id}, 'test')
 
         res.status(200).json({result, token})
     } catch (error) {
+        console.log(error)
         res.status(402).json(error)
     }
+}
+
+export const googleSignIn = async (req,res) => {
+
+    const User = UserModel(true);
+
+    try {
+        const {name,family_name: lastName, given_name: firstName, email} = req.body.result
+        const existingUser = await User.findOne({email});
+
+        if(existingUser) {
+            const token = jwt.sign({email: existingUser.email, id: existingUser._id}, 'test')
+    
+            res.status(200).json({result: existingUser, token})
+        }
+        else{
+
+            const result = await User.create({email, name, firstName,lastName});
+    
+            const token = jwt.sign({email: result.email, id: result._id}, 'test')
+    
+            res.status(200).json({result, token})
+        }
+        
+    } catch (error) {
+        console.log(error)
+        res.status(402).json({error})
+        
+    }
+}
+
+export const fetchUser = async (req, res) => {
+
+    const User = UserModel(false)
+    const {id} = req.params;
+
+    try {
+        const user = await User.findById(id);
+
+        res.status(200).json(user)
+    } catch (error) {
+        res.status(402).json({message: error.message})
+    }
+
 }

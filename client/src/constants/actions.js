@@ -11,6 +11,7 @@ const start_loading = 'START_LOADING'
 const end_loading = 'END_LOADING'
 const fetchpost = 'FETCH_POST'
 const addComment = 'COMMENT'
+const googleSign = 'GOOGLE_SIGN'
 
 export {
     create,
@@ -26,4 +27,5 @@ export {
     end_loading,
     signIn,
     addComment,
+    googleSign
 }

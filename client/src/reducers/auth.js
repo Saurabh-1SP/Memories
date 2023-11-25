@@ -1,10 +1,9 @@
-import { auth, end_loading, logout, signIn, start_loading} from "../constants/actions";
+import { auth, end_loading, googleSign, logout, signIn, start_loading} from "../constants/actions";
 
 
 const authReducer = (state = {authData : null,email: true,password: true,isLoading: false}, action) => {
     switch (action.type) {
         case auth:
-            console.log(action?.data)
             if(action?.data.result === 'userDontExist'){
                 console.log(`this email error`)
                 return {...state,email: false}
@@ -27,6 +26,16 @@ const authReducer = (state = {authData : null,email: true,password: true,isLoadi
                     console.log('successfully loged in')
                     localStorage.setItem('profile',JSON.stringify(action?.data))
                     return {...state, authData: action?.data, email: true, password: true}
+            }
+        case googleSign:
+            if (action?.data.error) {
+                console.log(action?.data.error)
+                console.log('something went wrong, please try again later')
+                return {...state}
+            } else {
+                console.log('successfully loged in')
+                localStorage.setItem('profile',JSON.stringify(action?.data))
+                return {...state, authData: action?.data, email: true, password: true}
             }
         case logout:
             localStorage.clear();
