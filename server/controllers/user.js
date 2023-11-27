@@ -56,16 +56,19 @@ export const googleSignIn = async (req,res) => {
         const existingUser = await User.findOne({email});
 
         if(existingUser) {
-            const token = jwt.sign({email: existingUser.email, id: existingUser._id}, 'test')
-    
+            // const token = jwt.sign({email: existingUser.email, id: existingUser._id}, 'test')
+            const token = req.body.token
+
             res.status(200).json({result: existingUser, token})
         }
         else{
 
             const result = await User.create({email, name, firstName,lastName});
     
-            const token = jwt.sign({email: result.email, id: result._id}, 'test')
-    
+            // const token = jwt.sign({email: result.email, id: result._id}, 'test')
+
+            const token = req.body.token
+
             res.status(200).json({result, token})
         }
         

@@ -1,4 +1,6 @@
 import jwt from 'jsonwebtoken'
+import UserModel from '../models/user.js'
+
 
 const auth = async (req,res,next) => {
     try {
@@ -11,16 +13,22 @@ const auth = async (req,res,next) => {
             decodedData = jwt.verify(token,'test');
 
             req.userId = decodedData?.id;
+
         }
         else{
             decodedData = jwt.decode(token);
 
-            req.userId = decodedData?.sub;
+            const User = UserModel(true)
+
+            const UserId = await User.find({email: decodedData?.email}).exec()
+
+            req.userId = UserId[0]._id;
+            req.Guser = true;
         }
 
         next();
     } catch (error) {
-        console.log(error)
+        console.log('Error in the Middleware:',error);
     }
 }
 

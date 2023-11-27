@@ -21,6 +21,7 @@ export const getPost = (id) => async (dispatch) => {
         const { data } = await api.fetchPost(id);
 
         dispatch({type: fetchpost, payload: data});
+        
         dispatch({type: end_loading})
     } catch (error) {
         console.log(error);

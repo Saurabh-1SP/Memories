@@ -6,7 +6,7 @@ const UserModel = (googleSignIn) => {
         firstName: { type: String, required: true },
         lastName: { type: String, required: true },
         email: { type: String, required: true },
-        allPosts: [],
+        allPosts: [{type: mongoose.Schema.Types.ObjectId , ref: "PostMessage"}],
     }
 
     if (googleSignIn) {

@@ -1,6 +1,6 @@
 import mongoose from "mongoose"
 import PostMessage from "../models/postMessage.js"
-import User from '../models/user.js'
+import UserModel from '../models/user.js'
 
 const getPosts = async (req,res) => {
 
@@ -58,17 +58,42 @@ const getPostsByTags = async (req, res) => {
 }
 
 const createPosts = async (req,res) => {
-    const post = req.body;
 
-    const newPost = new PostMessage({...post,creator: req.userId, createdAt: new Date().toISOString()});
+    const post = req.body
 
-    try {
-        await newPost.save();
+    const newPost = new PostMessage({...post,creator: req.userId, createdAt: new Date().toISOString()})
 
-        res.status(200).json(newPost)
-    } catch (error) {
-        res.status(400).json({ message: error.message})
-    }
+    await newPost.save()
+    .then(async (post) => {
+        try {
+            if(req.Guser){
+    
+                const User = UserModel(true)
+
+                await User.findByIdAndUpdate(req.userId,{ $push: {allPosts: post._id}},{new: true})
+                .then((newpost) => {
+                    res.status(200).json(newpost)
+                }).catch((err) => {
+                    console.log('Error:', err)
+                });
+            }
+            else {
+                const User = UserModel(false)
+                
+                await User.findByIdAndUpdate(req.userId,{ $push: {allPosts: post._id}},{new: true})
+                .then((newpost) => {
+                    res.status(200).json(newpost)
+                }).catch((err) => {
+                    console.log('Error:', err)
+                });
+            }
+        } catch (error) {
+            console.log('Error:',error)
+        }
+    }).catch((error) => {
+        console.log(`Error:`,error)
+    }) 
+    
 }
 
 const updatePost = async (req,res) => {
@@ -106,7 +131,7 @@ const likePost = async (req, res) => {
     try {
         if(!req.userId) return res.json({message: "Unathenticated"})
     
-        if(!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send('No post foun')
+        if(!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send('No post found')
     
         const post = await PostMessage.findById(id);
     
