@@ -26,8 +26,6 @@ const PostDetails = () => {
 
   const recommendedPosts = posts.filter(({_id}) => _id !== id);
 
-  if(!post) return null;
-
   if(isLoading) {
     return (
       <Paper elevation={6} className="loadingPaper">
@@ -40,7 +38,7 @@ const PostDetails = () => {
       <div className='detailsContainer'>
         <div className="section">
           <Typography variant="h3">{post.title}</Typography>
-          <Typography gutterBottom variant="h6" color="textSecondary" component="h2">{post.tags.map((tag) => `#${tag} `)}</Typography>
+          <Typography gutterBottom variant="h6" color="textSecondary" component="h2">{post.tags?.map((tag) => `#${tag} `)}</Typography>
           <Typography gutterBottom variant="body1" component="p">{post.message}</Typography>
           <Typography variant="h6">Created by: {post.name}</Typography>
           <Typography variant="body1">{moment(post.createdAt).fromNow()}</Typography>
@@ -74,11 +72,11 @@ const PostDetails = () => {
 
         <div className="commentSection">
           <div className='comment_head app_flex'>
-            <Typography variant='h2' fontSize='26px' fontFamily='monospace' fontWeight='600' >{post.comments.length}</Typography>
-            <Typography variant='h2' fontSize='26px' fontFamily='monospace' fontWeight='600' style={{marginLeft: '10px'}}>{post.comments.length > 1 ? 'Comments' : 'Comment'}</Typography>
+            <Typography variant='h2' fontSize='26px' fontFamily='monospace' fontWeight='600' >{post.comments?.length}</Typography>
+            <Typography variant='h2' fontSize='26px' fontFamily='monospace' fontWeight='600' style={{marginLeft: '10px'}}>{post.comments?.length > 1 ? 'Comments' : 'Comment'}</Typography>
           </div>
           <Divider sx={{width: '100%', alignSelf: 'center'}}/>
-          {post.comments.length > 0 && (
+          {post.comments?.length > 0 && (
             <div className="commentsBox">
               {post.comments.map((comment) => (
                 <CommentCard comment = {comment}/>

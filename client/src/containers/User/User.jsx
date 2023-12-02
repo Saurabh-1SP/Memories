@@ -4,21 +4,31 @@ import './style.css'
 import { fetchUser } from '../../action/user'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
+import { CircularProgress, Paper } from '@mui/material'
 
 const User = () => {
 
   const dispatch = useDispatch();
-  const {name}  = useParams();
+  const {id}  = useParams();
 
   useEffect(() => {
-    dispatch(fetchUser(name));
-  },[dispatch,name])
+    dispatch(fetchUser(id));
+  },[dispatch,id])
 
-  const user = useSelector((state) => state.user);
+  const {user,isLoading} = useSelector((state) => state.user);
 
-  console.log(user.user)
+    console.log(user,isLoading)
+  if(isLoading) {
+    return (
+      <Paper elevation={6} className="loadingPaper">
+        <CircularProgress size='7em'/>Loading
+      </Paper>
+    )
+  }
   return (
-    <div></div>
+    <div>
+      <h1>{user ? user.userName : 'User Not Found'}</h1>
+    </div>
   )
 }
 

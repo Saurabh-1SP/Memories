@@ -1,10 +1,19 @@
-const userReducer = (state = {user: null},action) => {
+const userReducer = (state = {user: {},isLoading: false},action) => {
     switch (action.type) {
-        case "fetchUser": 
+        case "fetchUser":
+            if (action?.payload.message === 'User Not Found'){
+                return {
+                    ...state,
+                }
+            }
             return{
                 ...state,
-                user: action.payload.data,
+                user: action.payload,
             };
+        case 'userStartLoading':
+            return{ ...state, isLoading: true }
+        case 'userEndLoading':
+            return{ ...state, isLoading: false}
         default:
             return state;
     }

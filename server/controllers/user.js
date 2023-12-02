@@ -2,7 +2,6 @@ import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
 
 import UserModel from '../models/user.js'
-import mongoose from 'mongoose';
 
 export const signin = async (req,res) => {
     const {email,password} = req.body;
@@ -81,15 +80,30 @@ export const googleSignIn = async (req,res) => {
 
 export const fetchUser = async (req, res) => {
 
-    const User = UserModel(false)
     const {id} = req.params;
 
-    try {
-        const user = await User.findById(id);
+    const Users = [UserModel(true), UserModel(false)]
 
-        res.status(200).json(user)
+    let User
+    try {
+        const user = await Users[0].findById(id)
+        User = user
+        if(!User){
+            const user = await Users[1].findById(id)
+            User = user
+        }
     } catch (error) {
-        res.status(402).json({message: error.message})
+        // res.status(402).json({message: error.message})
+        console.log(error)
+    }
+
+    if(!User){
+        res.status(204).json({message: "User not found"})
+    }
+    else{
+        const data = {userName: User.name,allPosts: User.allPosts}
+    
+        res.status(200).json(data)
     }
 
 }

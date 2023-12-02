@@ -7,3 +7,12 @@ body{
     align-items: center;
     justify-content: center;
 }
+
+.loadingPaper{
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    padding: 20px;
+    border-radius: 15px; 
+    height: 85vh;
+  }

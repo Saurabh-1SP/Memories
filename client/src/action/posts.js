@@ -22,7 +22,7 @@ export const getPost = (id) => async (dispatch) => {
 
         dispatch({type: fetchpost, payload: data});
         
-        dispatch({type: end_loading})
+        setTimeout(()=>dispatch({type: end_loading}),200)
     } catch (error) {
         console.log(error);
     }
@@ -46,7 +46,9 @@ export const getPostsByTags = (searchQuery) => async (dispatch) => {
         const data = await api.fetchPostsByTags(searchQuery);
         
         dispatch({type: fetch_by_search, payload: data});
-        dispatch({type: end_loading})
+        // dispatch({type: end_loading})
+        setTimeout(()=>dispatch({type: end_loading}),200)
+
     } catch (error) {
         console.log(error);
     }
